@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ "$#" -ne 1 ]]; then
+  echo "usage: bin/smoke DIST_WHEEL" >&2
+  exit 64
+fi
+
+wheel="$1"
+if [[ ! -f "$wheel" ]]; then
+  echo "wheel not found: $wheel" >&2
+  exit 66
+fi
+wheel_path="$(cd "$(dirname "$wheel")" && pwd)/$(basename "$wheel")"
+
+smoke_root="$(mktemp -d "${TMPDIR:-/tmp}/agent-bridge-guard-smoke.XXXXXX")"
+trap 'rm -rf "$smoke_root"' EXIT
+
+# The temporary virtualenv receives only runtime dependencies exported from the
+# frozen lockfile and the built wheel. It never imports host site-packages.
+uv venv "$smoke_root/venv"
+smoke_python="$smoke_root/venv/bin/python"
+runtime_requirements="$smoke_root/runtime-requirements.txt"
+uv export --locked --no-dev --no-editable --no-emit-project --format requirements.txt \
+  --output-file "$runtime_requirements" >/dev/null
+uv pip install --python "$smoke_python" --require-hashes --strict --requirement "$runtime_requirements"
+uv pip install --python "$smoke_python" --no-deps --strict "$wheel_path"
+
+SMOKE_VENV="$smoke_root/venv" env -u PYTHONPATH "$smoke_python" -I -c '
+import agent_bridge_guard
+import os
+from importlib.metadata import version
+from pathlib import Path
+
+assert version("agent-bridge-guard") == agent_bridge_guard.__version__
+assert Path(agent_bridge_guard.__file__).resolve().is_relative_to(
+    Path(os.environ["SMOKE_VENV"]).resolve()
+)
+print("wheel import smoke passed")
+'
+env -u PYTHONPATH "$smoke_root/venv/bin/agent-bridge-guard" --help >/dev/null
+echo "wheel CLI smoke passed"

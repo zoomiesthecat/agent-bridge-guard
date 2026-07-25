@@ -1,0 +1,12 @@
+{
+  "schema_version": 2,
+  "request_id": "request:replace-with-external-ticket-id",
+  "route_id": "arbitrum-usdc-robinhood-native-v1",
+  "source_chain_alias": "arbitrum",
+  "destination_chain_alias": "robinhood",
+  "amount_wei": "1000000000",
+  "minimum_output_wei": "500000000000000",
+  "signer": "0x1111111111111111111111111111111111111111",
+  "recipient": "0x2222222222222222222222222222222222222222",
+  "expires_at": "REPLACE_WITH_SHORT_FUTURE_UTC_TIMESTAMP"
+}
