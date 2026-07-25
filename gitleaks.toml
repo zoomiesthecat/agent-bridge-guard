@@ -1,0 +1,19 @@
+title = "Agent Bridge Guard secret scanning"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "generic-api-key"
+
+[[rules.allowlists]]
+description = "Public Arbitrum USDC address in immutable route fixtures"
+condition = "AND"
+regexTarget = "line"
+regexes = [
+  '''"(?:intermediary_token|source_order_token|source_reserve_token)": "0xaf88d065e77c8cc2239327c5edb3a432268e5831"''',
+]
+paths = [
+  '''tests/(?:test_debridge_provider|test_engine)\.py''',
+  '''examples/route\.manifest\.example\.json''',
+]

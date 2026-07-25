@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "artifact_type": "trusted_policy",
+  "policy_id": "production-main",
+  "policy_version": 1,
+  "approval_issuers": ["0xREPLACE_WITH_OFF_BOX_OPERATOR_ADDRESS"],
+  "authorized_route_manifests": [
+    {
+      "route_id": "arbitrum-usdc-robinhood-native-v1",
+      "sha256": "sha256:REPLACE_WITH_CANONICAL_ROUTE_MANIFEST_HASH"
+    }
+  ],
+  "chains": [
+    {
+      "chain_id": 42161,
+      "confirmations": 12
+    },
+    {
+      "chain_id": 4663,
+      "confirmations": 20
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+# Copy outside this repository, replace placeholders, then chmod 0600.
+# Do not put wallet keys, API tokens, or passwords in this file.
+
+[database]
+path = "/home/USER/.local/state/agent-bridge-guard/operations.sqlite3"
+
+[provider.debridge]
+create_tx_url = "https://DEBRIDGE-QUOTE-ENDPOINT.example.invalid"
+tracking_url = "https://DEBRIDGE-TRACKING-ENDPOINT.example.invalid"
+
+[chains.arbitrum]
+chain_id = 42161
+primary_rpc = "https://ARBITRUM-PRIMARY-RPC.example.invalid"
+secondary_rpc = "https://ARBITRUM-SECONDARY-RPC.example.invalid"
+
+[chains.robinhood]
+chain_id = 4663
+primary_rpc = "https://ROBINHOOD-PRIMARY-RPC.example.invalid"
+secondary_rpc = "https://ROBINHOOD-SECONDARY-RPC.example.invalid"

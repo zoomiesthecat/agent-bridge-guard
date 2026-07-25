@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+mode="${1:-targeted}"
+case "$mode" in targeted|full) ;; *) echo "usage: bin/check [targeted|full]" >&2; exit 64 ;; esac
+
+root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$root"
+
+run_targeted() {
+  uv run --locked --all-extras python -m ruff check src tests
+  uv run --locked --all-extras python -m mypy src
+  uv run --locked --all-extras python -m pytest tests
+}
+
+run_audit() {
+  audit_requirements="$(mktemp "${TMPDIR:-/tmp}/agent-bridge-guard-audit.XXXXXX")"
+  trap 'rm -f "$audit_requirements"' RETURN
+  uv export --locked --all-extras --no-editable --no-emit-project --format requirements.txt \
+    --output-file "$audit_requirements" >/dev/null
+  uv run --locked --all-extras python -m pip_audit --strict --no-deps \
+    --requirement "$audit_requirements"
+  trap - RETURN
+  rm -f "$audit_requirements"
+}
+
+run_targeted
+
+if [[ "$mode" == "full" ]]; then
+  uv run --locked --all-extras python -m pytest --cov=agent_bridge_guard --cov-branch --cov-report=term-missing
+  release_dir="$(mktemp -d "${TMPDIR:-/tmp}/agent-bridge-guard-build.XXXXXX")"
+  trap 'rm -rf "$release_dir"' EXIT
+  uv run --locked --all-extras python -m build --no-isolation --outdir "$release_dir"
+  run_audit
+  bin/smoke "$release_dir"/*.whl
+fi

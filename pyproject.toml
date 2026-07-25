@@ -1,0 +1,80 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "agent-bridge-guard"
+version = "0.1.0"
+description = "Guarded cross-chain execution for autonomous agents"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { file = "LICENSE" }
+authors = [{ name = "Gabriel Schmalz" }]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Security",
+]
+dependencies = [
+  "eth-account>=0.13.7,<0.14",
+  "eth-hash>=0.7,<1",
+  "eth-utils>=5,<7",
+  "hexbytes>=1.3,<2",
+]
+
+[project.urls]
+Homepage = "https://github.com/GabrielSchmalz/agent-bridge-guard"
+Repository = "https://github.com/GabrielSchmalz/agent-bridge-guard"
+Issues = "https://github.com/GabrielSchmalz/agent-bridge-guard/issues"
+Security = "https://github.com/GabrielSchmalz/agent-bridge-guard/security/advisories/new"
+
+[project.optional-dependencies]
+dev = [
+  "build>=1.2,<2",
+  "hatchling>=1.27,<2",
+  "mypy>=1.19,<2",
+  "pip-audit>=2.9,<3",
+  "pytest>=9.0.3,<10",
+  "pytest-cov>=7,<8",
+  "ruff>=0.15,<0.16",
+]
+
+[project.scripts]
+agent-bridge-guard = "agent_bridge_guard.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/agent_bridge_guard"]
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-markers --strict-config"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "S"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+packages = ["agent_bridge_guard"]
+
+[tool.coverage.run]
+branch = true
+source = ["agent_bridge_guard"]
+
+[tool.coverage.report]
+fail_under = 90
+precision = 2
+show_missing = true
+skip_covered = false
