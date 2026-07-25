@@ -5,7 +5,7 @@
 - [x] Independent security review returns no release blocker.
 - [x] Independent architecture/recovery review returns no release blocker.
 - [x] `AGENT_BRIDGE_GUARD_REQUIRE_AUDIT=1 bin/check full` passes.
-- [ ] Public GitHub CI passes from the clean published commit.
+- [x] Public GitHub CI passes from the clean published commit.
 - [ ] Bounded released-wheel canary after publication; required for `1.0`, not CI.
 
 ## Ready
