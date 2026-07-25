@@ -37,11 +37,11 @@ Security = "https://github.com/GabrielSchmalz/agent-bridge-guard/security/adviso
 dev = [
   "build>=1.2,<2",
   "hatchling>=1.27,<2",
-  "mypy>=1.19,<2",
+  "mypy>=1.19,<3",
   "pip-audit>=2.9,<3",
   "pytest>=9.0.3,<10",
   "pytest-cov>=7,<8",
-  "ruff>=0.15,<0.16",
+  "ruff>=0.15,<0.17",
 ]
 
 [project.scripts]
