@@ -70,7 +70,7 @@ when hostile-agent separation matters.
 ## Install from source
 
 ```bash
-git clone https://github.com/GabrielSchmalz/agent-bridge-guard.git
+git clone https://github.com/zoomiesthecat/agent-bridge-guard.git
 cd agent-bridge-guard
 uv sync --locked --all-extras
 source .venv/bin/activate

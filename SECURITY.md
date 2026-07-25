@@ -6,7 +6,7 @@ policy, and independently reviewed route manifests.
 
 ## Report privately
 
-Use a [GitHub private security advisory](https://github.com/GabrielSchmalz/agent-bridge-guard/security/advisories/new).
+Use a [GitHub private security advisory](https://github.com/zoomiesthecat/agent-bridge-guard/security/advisories/new).
 Do not open a public issue containing credentials, keystores, passwords, raw
 keys, approval signatures, signed-but-unbroadcast transactions, private RPC
 endpoints, or private operation artifacts.

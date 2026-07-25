@@ -9,7 +9,7 @@ description = "Guarded cross-chain execution for autonomous agents"
 readme = "README.md"
 requires-python = ">=3.11"
 license = { file = "LICENSE" }
-authors = [{ name = "Gabriel Schmalz" }]
+authors = [{ name = "ZOOMIES" }]
 classifiers = [
   "Development Status :: 3 - Alpha",
   "Environment :: Console",
@@ -28,10 +28,10 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/GabrielSchmalz/agent-bridge-guard"
-Repository = "https://github.com/GabrielSchmalz/agent-bridge-guard"
-Issues = "https://github.com/GabrielSchmalz/agent-bridge-guard/issues"
-Security = "https://github.com/GabrielSchmalz/agent-bridge-guard/security/advisories/new"
+Homepage = "https://github.com/zoomiesthecat/agent-bridge-guard"
+Repository = "https://github.com/zoomiesthecat/agent-bridge-guard"
+Issues = "https://github.com/zoomiesthecat/agent-bridge-guard/issues"
+Security = "https://github.com/zoomiesthecat/agent-bridge-guard/security/advisories/new"
 
 [project.optional-dependencies]
 dev = [
