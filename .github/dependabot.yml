@@ -10,6 +10,12 @@ updates:
         dependency-type: production
       python-development:
         dependency-type: development
+    ignore:
+      # These releases change diagnostics/defaults and need a deliberate migration.
+      - dependency-name: mypy
+        versions: [">=2"]
+      - dependency-name: ruff
+        versions: [">=0.16"]
 
   - package-ecosystem: github-actions
     directory: /
